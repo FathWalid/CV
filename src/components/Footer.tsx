@@ -29,7 +29,7 @@ const Footer: React.FC = () => {
               <Github size={20} />
             </a>
             <a 
-              href="www.linkedin.com/in/walid-fath-isga" 
+              href="https://www.linkedin.com/in/walid-fath-isga" 
               target="_blank" 
               rel="noopener noreferrer"
               className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-colors duration-300"

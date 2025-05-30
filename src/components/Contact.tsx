@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Mail, Send, MapPin, Phone, Linkedin } from 'lucide-react';
 import SectionTitle from './SectionTitle';
 
 const Contact: React.FC = () => {
   const contactRef = useRef<HTMLDivElement>(null);
+  const [showNotification, setShowNotification] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -21,6 +22,19 @@ const Contact: React.FC = () => {
 
     if (contactRef.current) {
       observer.observe(contactRef.current);
+    }
+
+    // Check URL params for sent=1 to show notification
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('sent') === '1') {
+      setShowNotification(true);
+      setTimeout(() => {
+        setShowNotification(false);
+        // Remove 'sent' from URL without reload
+        const url = new URL(window.location.href);
+        url.searchParams.delete('sent');
+        window.history.replaceState({}, '', url.toString());
+      }, 5000);
     }
 
     return () => {
@@ -42,6 +56,12 @@ const Contact: React.FC = () => {
           ref={contactRef}
           className="max-w-5xl mx-auto mt-10 transform transition-all duration-1000 opacity-0 translate-y-10"
         >
+          {showNotification && (
+            <div className="mb-4 p-4 bg-green-100 text-green-800 rounded">
+              Merci ! Votre message a été envoyé avec succès.
+            </div>
+          )}
+
           <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
             <div className="md:flex">
               <div className="md:w-2/5 bg-gradient-to-br from-blue-500 to-blue-700 dark:from-blue-600 dark:to-blue-900 p-8 text-white">
@@ -158,7 +178,7 @@ const Contact: React.FC = () => {
                   </div>
 
                   <input type="hidden" name="_captcha" value="false" />
-                  <input type="hidden" name="_next" value="https://ton-site.com/merci" />
+                  <input type="hidden" name="_next" value="https://walidfath.vercel.app/#contact?sent=1" />
 
                   <button 
                     type="submit"

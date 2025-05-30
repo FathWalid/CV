@@ -61,7 +61,7 @@ const Hero: React.FC = () => {
           
           <div className="flex justify-center space-x-5">
             <a 
-              href="www.linkedin.com/in/walid-fath-isga" 
+              href="ttps://www.linkedin.com/in/walid-fath-isga" 
               target="_blank" 
               rel="noopener noreferrer"
               className="p-3 rounded-full bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300"
